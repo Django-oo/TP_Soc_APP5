@@ -1,0 +1,16 @@
+
+    component system is
+        port (
+            leds_export     : out std_logic_vector(7 downto 0);                    -- export
+            switches_export : in  std_logic_vector(7 downto 0) := (others => 'X'); -- export
+            clk_clk         : in  std_logic                    := 'X'              -- clk
+        );
+    end component system;
+
+    u0 : component system
+        port map (
+            leds_export     => CONNECTED_TO_leds_export,     --     leds.export
+            switches_export => CONNECTED_TO_switches_export, -- switches.export
+            clk_clk         => CONNECTED_TO_clk_clk          --      clk.clk
+        );
+
