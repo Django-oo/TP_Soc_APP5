@@ -19,7 +19,13 @@ PORT (
     DRAM_RAS_N : OUT   STD_LOGIC;
     DRAM_WE_N  : OUT   STD_LOGIC;
     DRAM_DQ    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-    DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0)
+    DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
+	 
+	 -- Motor
+	 dc_motor_p_R : out std_LOGIC;
+	 dc_motor_n_R : out std_LOGIC;
+	 dc_motor_p_L : out std_LOGIC;
+	 dc_motor_n_L : out std_LOGIC
 );
 END lights;
 
@@ -67,7 +73,12 @@ BEGIN
         sdram_wire_dq    => DRAM_DQ,
         sdram_wire_dqm   => DRAM_DQM,
         sdram_wire_ras_n => DRAM_RAS_N,
-        sdram_wire_we_n  => DRAM_WE_N
+        sdram_wire_we_n  => DRAM_WE_N,
+		  
+		  dc_motor_p_R => dc_motor_p_R,
+		  dc_motor_n_R => dc_motor_n_R,
+		  dc_motor_p_L => dc_motor_p_L,
+		  dc_motor_n_L => dc_motor_n_L
     );
 
 END lights_rtl;
