@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nios2_config version="1.0">
     <system>
-        <system_info filepath="true">system.sopcinfo</system_info>
-        <system_sof filepath="true">output_files\TP-FPGA.sof</system_sof>
+        <system_info filepath="true">..\..\..\..\altera\13.0sp1\University_Program\NiosII_Computer_Systems\DE0-Nano\DE0-Nano_Computer\verilog\nios_system.qsys</system_info>
+        <sample_system_title>DE0-Nano Computer</sample_system_title>
+        <system_sof filepath="true">..\..\..\..\altera\13.0sp1\University_Program\NiosII_Computer_Systems\DE0-Nano\DE0-Nano_Computer\verilog\DE0_Nano_Computer.sof</system_sof>
         <system_jdi filepath="true"/>
         <cable>USB-Blaster [USB-0]</cable>
-        <processor JTAGHubInstanceID="0">nios2_processor</processor>
-        <elf_section name="text">
-            <memory_device>sdram/s1</memory_device>
-            <memory_start_offset>0</memory_start_offset>
-        </elf_section>
-        <elf_section name="data">
-            <memory_device>sdram/s1</memory_device>
-            <memory_start_offset>0</memory_start_offset>
-        </elf_section>
-        <terminal JTAGHubInstanceID="0">jtag_uart</terminal>
+        <processor JTAGHubInstanceID="0">CPU</processor>
+        <terminal JTAGHubInstanceID="0">JTAG_UART</terminal>
     </system>
-    <program>
-        <type>C</type>
-        <options>
-            <source_files>
-                <source_file filepath="true">APP5-FPGA-Software\lights.c</source_file>
-            </source_files>
-            <compiler_flags>-g -O1 -ffunction-sections -fverbose-asm -fno-inline</compiler_flags>
-            <emulate_unimpl_instructions>true</emulate_unimpl_instructions>
-            <use_small_c_library>false</use_small_c_library>
-        </options>
-    </program>
 </nios2_config>

@@ -41,6 +41,14 @@
          type = "String";
       }
    }
+   element PWM_avalon_interface_0.avalon_slave_0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
    element clk_0
    {
       datum _sortIndex
