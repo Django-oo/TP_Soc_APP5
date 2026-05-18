@@ -1,5 +1,5 @@
 Flow report for TP-FPGA
-Mon May 18 10:50:01 2026
+Mon May 18 11:09:09 2026
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Flow Summary                                                                          ;
 +------------------------------------+--------------------------------------------------+
-; Flow Status                        ; Flow Failed - Mon May 18 10:50:01 2026           ;
+; Flow Status                        ; Flow Failed - Mon May 18 11:09:09 2026           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name                      ; TP-FPGA                                          ;
 ; Top-level Entity Name              ; lights                                           ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/18/2026 10:50:00 ;
+; Start date & time ; 05/18/2026 11:09:08 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; TP-FPGA             ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+----------------------------------------------------------+---------------+---------------------------------+------------+
 ; Assignment Name                     ; Value                                                    ; Default Value ; Entity Name                     ; Section Id ;
 +-------------------------------------+----------------------------------------------------------+---------------+---------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 44829937158057.177909420018584                           ; --            ; --                              ; --         ;
+; COMPILER_SIGNATURE_ID               ; 44829937158057.177909534822080                           ; --            ; --                              ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                     ; --            ; altera_avalon_sc_fifo           ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                     ; --            ; altera_merlin_burst_adapter     ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                     ; --            ; altera_merlin_master_agent      ; --         ;
@@ -176,7 +176,7 @@ applicable agreement for further details.
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                      ; --            ; --                              ; --         ;
 ; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                    ; --            ; --                              ; --         ;
 ; PROJECT_OUTPUT_DIRECTORY            ; output_files                                             ; --            ; --                              ; --         ;
-; SLD_INFO                            ; QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1779092457 ; --            ; system                          ; --         ;
+; SLD_INFO                            ; QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1779094978 ; --            ; system                          ; --         ;
 ; SOPCINFO_FILE                       ; nios_system/synthesis/../../system.sopcinfo              ; --            ; --                              ; --         ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                       ; --            ; --                              ; --         ;
 ; TOP_LEVEL_ENTITY                    ; lights                                                   ; TP-FPGA       ; --                              ; --         ;
