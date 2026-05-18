@@ -19,7 +19,13 @@ PORT (
     DRAM_RAS_N : OUT   STD_LOGIC;
     DRAM_WE_N  : OUT   STD_LOGIC;
     DRAM_DQ    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-    DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0)
+    DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
+	 
+	  	 -- Motor
+		 dc_motor_n_R        : out   std_logic;                                        -- n_R
+		 dc_motor_p_L        : out   std_logic;                                        -- p_L
+		 dc_motor_p_R        : out   std_logic;                                        -- p_R
+		 dc_motor_n_L        : out   std_logic                                         -- n_L
 	 
 );
 END lights;

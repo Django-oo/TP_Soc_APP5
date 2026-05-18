@@ -56,6 +56,10 @@ DRAM_DQ[14] <> system:NiosII.sdram_wire_dq[14]
 DRAM_DQ[15] <> system:NiosII.sdram_wire_dq[15]
 DRAM_DQM[0] <= system:NiosII.sdram_wire_dqm[0]
 DRAM_DQM[1] <= system:NiosII.sdram_wire_dqm[1]
+dc_motor_n_R <= system:NiosII.motor_n_R
+dc_motor_p_L <= system:NiosII.motor_p_L
+dc_motor_p_R <= system:NiosII.motor_p_R
+dc_motor_n_L <= system:NiosII.motor_n_L
 
 
 |lights|system:NiosII
@@ -118,6 +122,10 @@ sdram_wire_dqm[1] <= system_sdram:sdram.zs_dqm[1]
 sdram_wire_ras_n <= system_sdram:sdram.zs_ras_n
 sdram_wire_we_n <= system_sdram:sdram.zs_we_n
 sdram_clk_clk <= system_clocks:clocks.SDRAM_CLK
+motor_n_R <= PWM_avalon_interface:pwm_avalon_interface_0.dc_motor_n_R
+motor_p_L <= PWM_avalon_interface:pwm_avalon_interface_0.dc_motor_p_L
+motor_p_R <= PWM_avalon_interface:pwm_avalon_interface_0.dc_motor_p_R
+motor_n_L <= PWM_avalon_interface:pwm_avalon_interface_0.dc_motor_n_L
 
 
 |lights|system:NiosII|system_nios2_processor:nios2_processor
