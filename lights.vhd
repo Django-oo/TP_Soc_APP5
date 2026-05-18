@@ -19,13 +19,8 @@ PORT (
     DRAM_RAS_N : OUT   STD_LOGIC;
     DRAM_WE_N  : OUT   STD_LOGIC;
     DRAM_DQ    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-    DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
+    DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0)
 	 
-	 -- Motor
-	 dc_motor_n_R        : out   std_logic;                                        -- n_R
-    dc_motor_p_L        : out   std_logic;                                        -- p_L
-    dc_motor_p_R        : out   std_logic;                                        -- p_R
-    dc_motor_n_L        : out   std_logic                                         -- n_L
 );
 END lights;
 
@@ -49,7 +44,13 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_dq    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
         sdram_wire_dqm   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
         sdram_wire_ras_n : OUT   STD_LOGIC;
-        sdram_wire_we_n  : OUT   STD_LOGIC
+        sdram_wire_we_n  : OUT   STD_LOGIC;
+		  
+		  	 -- Motor
+		 motor_n_R        : out   std_logic;                                        -- n_R
+		 motor_p_L        : out   std_logic;                                        -- p_L
+		 motor_p_R        : out   std_logic;                                        -- p_R
+		 motor_n_L        : out   std_logic                                         -- n_L
     );
     END COMPONENT;
 
@@ -75,10 +76,10 @@ BEGIN
         sdram_wire_ras_n => DRAM_RAS_N,
         sdram_wire_we_n  => DRAM_WE_N,
 		  
-		  dc_motor_n_R        => dc_motor_n_R,        --      motor.n_R
-        dc_motor_p_L        => dc_motor_p_L,        --           .p_L
-        dc_motor_p_R        => dc_motor_p_R,        --           .p_R
-        dc_motor_n_L        => dc_motor_n_L         --           .n_L
+		  motor_n_R        => dc_motor_n_R,        --      motor.n_R
+        motor_p_L        => dc_motor_p_L,        --           .p_L
+        motor_p_R        => dc_motor_p_R,        --           .p_R
+        motor_n_L        => dc_motor_n_L         --           .n_L
     );
 
 END lights_rtl;

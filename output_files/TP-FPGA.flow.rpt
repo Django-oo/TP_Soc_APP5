@@ -1,5 +1,5 @@
 Flow report for TP-FPGA
-Mon May 18 11:09:09 2026
+Mon May 18 11:15:22 2026
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Flow Summary                                                                          ;
 +------------------------------------+--------------------------------------------------+
-; Flow Status                        ; Flow Failed - Mon May 18 11:09:09 2026           ;
+; Flow Status                        ; Flow Failed - Mon May 18 11:15:22 2026           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name                      ; TP-FPGA                                          ;
 ; Top-level Entity Name              ; lights                                           ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/18/2026 11:09:08 ;
+; Start date & time ; 05/18/2026 11:15:21 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; TP-FPGA             ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+----------------------------------------------------------+---------------+---------------------------------+------------+
 ; Assignment Name                     ; Value                                                    ; Default Value ; Entity Name                     ; Section Id ;
 +-------------------------------------+----------------------------------------------------------+---------------+---------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 44829937158057.177909534822080                           ; --            ; --                              ; --         ;
+; COMPILER_SIGNATURE_ID               ; 44829937158057.177909572122688                           ; --            ; --                              ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                     ; --            ; altera_avalon_sc_fifo           ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                     ; --            ; altera_merlin_burst_adapter     ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                     ; --            ; altera_merlin_master_agent      ; --         ;
