@@ -20,13 +20,8 @@ PORT (
     DRAM_WE_N  : OUT   STD_LOGIC;
     DRAM_DQ    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
     DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
-	 
-	  	 -- Motor
-		 dc_motor_n_R        : out   std_logic;                                        -- n_R
-		 dc_motor_p_L        : out   std_logic;                                        -- p_L
-		 dc_motor_p_R        : out   std_logic;                                        -- p_R
-		 dc_motor_n_L        : out   std_logic                                         -- n_L
-	 
+
+    GPIO_0     : INOUT STD_LOGIC_VECTOR(33 DOWNTO 0)
 );
 END lights;
 
@@ -60,7 +55,19 @@ ARCHITECTURE lights_rtl OF lights IS
     );
     END COMPONENT;
 
+    SIGNAL dc_motor_n_R : STD_LOGIC;
+    SIGNAL dc_motor_p_L : STD_LOGIC;
+    SIGNAL dc_motor_p_R : STD_LOGIC;
+    SIGNAL dc_motor_n_L : STD_LOGIC;
+
 BEGIN
+
+    GPIO_0 <= (others => 'Z');
+    GPIO_0(2) <= dc_motor_n_R; -- MTRR_N
+    GPIO_0(3) <= dc_motor_p_R; -- MTRR_P
+    GPIO_0(4) <= dc_motor_p_L; -- MTRL_P
+    GPIO_0(5) <= dc_motor_n_L; -- MTRL_N
+    GPIO_0(6) <= '1';          -- MTR_Sleep_n
 
     NiosII : system
     PORT MAP(
