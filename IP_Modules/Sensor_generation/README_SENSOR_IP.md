@@ -47,7 +47,7 @@ L'adresse de base est choisie dans Platform Designer. Une adresse pratique apres
 
 | Offset | Registre | Acces | Description |
 |---:|---|---|---|
-| `0x00` | `CONTROL_STATUS` | R/W | Ecriture bit 0 = lancer une acquisition. Ecriture bit 1 = effacer `ready`. Lecture bit 0 = `ready`, bit 1 = PLL locked, bits 14..8 = capteurs seuilles. |
+| `0x00` | `CONTROL_STATUS` | R/W | Ecriture bit 0 = lancer une acquisition. Ecriture bit 1 = effacer `ready`. Lecture bit 0 = `ready`, bits 14..8 = capteurs seuilles. |
 | `0x04` | `THRESHOLD` | R/W | Seuil sur 8 bits utilise par `capteurs_sol_seuil`. Valeur reset = `0x80`. |
 | `0x08` | `RAW_0_3` | R | Valeurs brutes 8 bits des capteurs 0 a 3. |
 | `0x0C` | `RAW_4_6` | R | Valeurs brutes 8 bits des capteurs 4 a 6. |
@@ -58,8 +58,7 @@ L'adresse de base est choisie dans Platform Designer. Une adresse pratique apres
 
 ```text
 bit 0      ready_latched
-bit 1      pll_locked
-bits 7..2  0
+bits 7..1  0
 bits 14..8 vect_capt(6 downto 0)
 bits 31..15 0
 ```
