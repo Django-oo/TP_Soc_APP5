@@ -21,7 +21,12 @@ PORT (
     DRAM_DQ    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
     DRAM_DQM   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
 
-    GPIO_0     : INOUT STD_LOGIC_VECTOR(33 DOWNTO 0)
+    GPIO_0     : INOUT STD_LOGIC_VECTOR(33 DOWNTO 0);
+
+    ADC_CS_N   : OUT STD_LOGIC;
+    ADC_SADDR  : OUT STD_LOGIC;
+    ADC_SCLK   : OUT STD_LOGIC;
+    ADC_SDAT   : IN  STD_LOGIC
 );
 END lights;
 
@@ -47,7 +52,11 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_ras_n : OUT   STD_LOGIC;
         sdram_wire_we_n  : OUT   STD_LOGIC;
 		  
-        motor_export : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
+        motor_export  : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+        sensor_CONVST : OUT STD_LOGIC;
+        sensor_SCK    : OUT STD_LOGIC;
+        sensor_SDI    : OUT STD_LOGIC;
+        sensor_SDO    : IN  STD_LOGIC
     );
     END COMPONENT;
 
@@ -82,7 +91,11 @@ BEGIN
         sdram_wire_ras_n => DRAM_RAS_N,
         sdram_wire_we_n  => DRAM_WE_N,
 		  
-        motor_export => motor_out
+        motor_export  => motor_out,
+        sensor_CONVST => ADC_CS_N,
+        sensor_SCK    => ADC_SCLK,
+        sensor_SDI    => ADC_SADDR,
+        sensor_SDO    => ADC_SDAT
     );
 
 END lights_rtl;
