@@ -212,6 +212,9 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VHDL_FILE IP_Modules/PWM_generation/PWM_generation.vhd
 set_global_assignment -name VHDL_FILE IP_Modules/PWM_generation/PWM_avalon_interface.vhd
+set_global_assignment -name VHDL_FILE IP_Modules/Sensor_generation/capteurs_sol.vhd
+set_global_assignment -name VHDL_FILE IP_Modules/Sensor_generation/capteurs_sol_seuil.vhd
+set_global_assignment -name VHDL_FILE IP_Modules/Sensor_generation/Sensor_avalon_interface.vhd
 
 
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
