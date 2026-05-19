@@ -107,19 +107,6 @@
          type = "int";
       }
    }
-   element switches.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "67121152";
-         type = "String";
-      }
-   }
    element LEDS.s1
    {
       datum _lockedAddress
@@ -133,19 +120,6 @@
          type = "String";
       }
    }
-   element onchip_memory.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "67112960";
-         type = "String";
-      }
-   }
    element sdram.s1
    {
       datum _lockedAddress
@@ -156,6 +130,32 @@
       datum baseAddress
       {
          value = "33554432";
+         type = "String";
+      }
+   }
+   element switches.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "67121152";
+         type = "String";
+      }
+   }
+   element onchip_memory.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "67112960";
          type = "String";
       }
    }
@@ -190,7 +190,7 @@
  <parameter name="projectName" value="TP-FPGA.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1779091312521" />
+ <parameter name="timeStamp" value="1779175290298" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
@@ -462,7 +462,9 @@
    kind="PWM_avalon_interface"
    version="1.0"
    enabled="1"
-   name="PWM_avalon_interface_0" />
+   name="PWM_avalon_interface_0">
+  <parameter name="AUTO_CLOCK_SINK_CLOCK_RATE" value="50000000" />
+ </module>
  <connection
    kind="avalon"
    version="13.0"
@@ -639,15 +641,15 @@
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
-   kind="clock"
-   version="13.0"
-   start="clocks.sys_clk"
-   end="PWM_avalon_interface_0.clock_sink" />
- <connection
    kind="reset"
    version="13.0"
    start="nios2_processor.jtag_debug_module_reset"
    end="PWM_avalon_interface_0.reset_sink" />
+ <connection
+   kind="clock"
+   version="13.0"
+   start="clocks.sys_clk"
+   end="PWM_avalon_interface_0.clock_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

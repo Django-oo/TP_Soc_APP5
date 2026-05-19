@@ -2,7 +2,7 @@ set_global_assignment -entity "system" -library "system" -name IP_TOOL_NAME "Qsy
 set_global_assignment -entity "system" -library "system" -name IP_TOOL_VERSION "13.0sp1"
 set_global_assignment -entity "system" -library "system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../system.sopcinfo"]
-set_instance_assignment -entity "system" -library "system" -name SLD_INFO "QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1779100196"
+set_instance_assignment -entity "system" -library "system" -name SLD_INFO "QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1779175739"
 set_global_assignment -library "system" -name MISC_FILE [file join $::quartus(qip_path) "../../system.cmp"]
 set_global_assignment -name SYNTHESIS_ONLY_QIP ON
 set_global_assignment -library "system" -name MISC_FILE [file join $::quartus(qip_path) "../../system.qsys"]
@@ -42,7 +42,6 @@ set_global_assignment -library "system" -name VERILOG_FILE [file join $::quartus
 set_global_assignment -library "system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_reset_synchronizer.v"]
 set_global_assignment -library "system" -name SDC_FILE [file join $::quartus(qip_path) "submodules/altera_reset_controller.sdc"]
 set_global_assignment -library "system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_burst_adapter.sv"]
-set_global_assignment -library "system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/system_id_router_006.sv"]
 set_global_assignment -library "system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/system_id_router_003.sv"]
 set_global_assignment -library "system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/system_id_router_002.sv"]
 set_global_assignment -library "system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/system_id_router.sv"]
@@ -106,9 +105,6 @@ set_global_assignment -entity "altera_reset_controller" -library "system" -name 
 set_global_assignment -entity "altera_merlin_burst_adapter" -library "system" -name IP_TOOL_NAME "altera_merlin_burst_adapter"
 set_global_assignment -entity "altera_merlin_burst_adapter" -library "system" -name IP_TOOL_VERSION "13.0"
 set_global_assignment -entity "altera_merlin_burst_adapter" -library "system" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "system_id_router_006" -library "system" -name IP_TOOL_NAME "altera_merlin_router"
-set_global_assignment -entity "system_id_router_006" -library "system" -name IP_TOOL_VERSION "13.0"
-set_global_assignment -entity "system_id_router_006" -library "system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "system_id_router_003" -library "system" -name IP_TOOL_NAME "altera_merlin_router"
 set_global_assignment -entity "system_id_router_003" -library "system" -name IP_TOOL_VERSION "13.0"
 set_global_assignment -entity "system_id_router_003" -library "system" -name IP_TOOL_ENV "Qsys"
