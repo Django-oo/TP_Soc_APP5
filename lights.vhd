@@ -47,7 +47,7 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_ras_n : OUT   STD_LOGIC;
         sdram_wire_we_n  : OUT   STD_LOGIC;
 		  
-        motor_motor_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
+        motor_export : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
     );
     END COMPONENT;
 
@@ -82,7 +82,7 @@ BEGIN
         sdram_wire_ras_n => DRAM_RAS_N,
         sdram_wire_we_n  => DRAM_WE_N,
 		  
-        motor_motor_out => motor_out
+        motor_export => motor_out
     );
 
 END lights_rtl;
