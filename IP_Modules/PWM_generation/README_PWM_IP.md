@@ -1,27 +1,43 @@
 # PWM Motor IP Core
 
-This folder contains the first custom IP core for the CuteCar motors.
+This folder contains the custom PWM IP core for the CuteCar motors.
 
-`PWM_generation.vhd` is the provided PWM component and must stay unchanged.
+`PWM_generation.vhd` generates the PWM signals.
 `PWM_avalon_interface.vhd` is the Avalon-MM wrapper used by Qsys / Platform Designer.
 
 ## Avalon-MM Register Map
 
-Use a 16-bit Avalon-MM slave with word addressing.
+The slave is 32-bit wide.
 
-| Word address | Register | Access | Description |
+| Offset | Register | Access | Description |
 |---|---|---|---|
-| `0x0` | `RIGHT_COMMAND` | R/W | Command word connected to `s_writedataR`. |
-| `0x1` | `LEFT_COMMAND` | R/W | Command word connected to `s_writedataL`. |
-| `0x2` | `STATUS` | R | Current enable and direction bits. |
-| `0x3` | Reserved | R | Reads as zero. |
+| `BASE + 0x00` | `RIGHT_COMMAND` | R/W | Right motor command. |
+| `BASE + 0x04` | `LEFT_COMMAND` | R/W | Left motor command. |
 
 Command word format:
 
 | Bits | Meaning |
 |---|---|
 | `13` | Go/stop: `1` = go, `0` = stop. |
-| `12` | Direction: `0` = forward, `1` = backward. |
+| `12` | Direction. |
 | `11 downto 0` | PWM duty value / speed. |
 
-Suggested Qsys base address: `0x04003030`.
+Examples for speed 2500:
+
+| Direction | Value |
+|---|---|
+| Forward | `0x000029C4` |
+| Backward | `0x000039C4` |
+
+## Motor Conduit
+
+The IP exports a single 4-bit conduit named `motor_out`.
+
+| Bit | Signal |
+|---|---|
+| `motor_out(3)` | Right motor positive |
+| `motor_out(2)` | Right motor negative |
+| `motor_out(1)` | Left motor positive |
+| `motor_out(0)` | Left motor negative |
+
+After changing the IP, refresh the component in Platform Designer, regenerate the Qsys system, recompile Quartus, and program the new `.sof`.

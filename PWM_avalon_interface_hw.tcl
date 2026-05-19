@@ -77,13 +77,13 @@ set_interface_property avalon_slave_0 EXPORT_OF ""
 set_interface_property avalon_slave_0 PORT_NAME_MAP ""
 set_interface_property avalon_slave_0 SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_0 address address Input 2
+add_interface_port avalon_slave_0 address address Input 1
 add_interface_port avalon_slave_0 read read Input 1
 add_interface_port avalon_slave_0 write write Input 1
 add_interface_port avalon_slave_0 chipselect chipselect Input 1
-add_interface_port avalon_slave_0 writedata writedata Input 16
-add_interface_port avalon_slave_0 byteenable byteenable Input 2
-add_interface_port avalon_slave_0 readdata readdata Output 16
+add_interface_port avalon_slave_0 writedata writedata Input 32
+add_interface_port avalon_slave_0 byteenable byteenable Input 4
+add_interface_port avalon_slave_0 readdata readdata Output 32
 set_interface_assignment avalon_slave_0 embeddedsw.configuration.isFlash 0
 set_interface_assignment avalon_slave_0 embeddedsw.configuration.isMemoryDevice 0
 set_interface_assignment avalon_slave_0 embeddedsw.configuration.isNonVolatileStorage 0
@@ -128,8 +128,5 @@ set_interface_property conduit_end EXPORT_OF ""
 set_interface_property conduit_end PORT_NAME_MAP ""
 set_interface_property conduit_end SVD_ADDRESS_GROUP ""
 
-add_interface_port conduit_end dc_motor_n_R export Output 1
-add_interface_port conduit_end dc_motor_p_L export Output 1
-add_interface_port conduit_end dc_motor_p_R export Output 1
-add_interface_port conduit_end dc_motor_n_L export Output 1
+add_interface_port conduit_end motor_out export Output 4
 

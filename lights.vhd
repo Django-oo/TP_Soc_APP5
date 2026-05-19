@@ -47,26 +47,19 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_ras_n : OUT   STD_LOGIC;
         sdram_wire_we_n  : OUT   STD_LOGIC;
 		  
-		  	 -- Motor
-		 motor_n_R        : out   std_logic;                                        -- n_R
-		 motor_p_L        : out   std_logic;                                        -- p_L
-		 motor_p_R        : out   std_logic;                                        -- p_R
-		 motor_n_L        : out   std_logic                                         -- n_L
+        motor_motor_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
     );
     END COMPONENT;
 
-    SIGNAL dc_motor_n_R : STD_LOGIC;
-    SIGNAL dc_motor_p_L : STD_LOGIC;
-    SIGNAL dc_motor_p_R : STD_LOGIC;
-    SIGNAL dc_motor_n_L : STD_LOGIC;
+    SIGNAL motor_out : STD_LOGIC_VECTOR(3 DOWNTO 0);
 
 BEGIN
 
     GPIO_0 <= (others => 'Z');
-    GPIO_0(2) <= dc_motor_n_R; -- MTRR_N
-    GPIO_0(3) <= dc_motor_p_R; -- MTRR_P
-    GPIO_0(4) <= dc_motor_p_L; -- MTRL_P
-    GPIO_0(5) <= dc_motor_n_L; -- MTRL_N
+    GPIO_0(2) <= motor_out(2); -- MTRR_N
+    GPIO_0(3) <= motor_out(3); -- MTRR_P
+    GPIO_0(4) <= motor_out(1); -- MTRL_P
+    GPIO_0(5) <= motor_out(0); -- MTRL_N
     GPIO_0(6) <= '1';          -- MTR_Sleep_n
 
     NiosII : system
@@ -89,10 +82,7 @@ BEGIN
         sdram_wire_ras_n => DRAM_RAS_N,
         sdram_wire_we_n  => DRAM_WE_N,
 		  
-		  motor_n_R        => dc_motor_n_R,        --      motor.n_R
-        motor_p_L        => dc_motor_p_L,        --           .p_L
-        motor_p_R        => dc_motor_p_R,        --           .p_R
-        motor_n_L        => dc_motor_n_L         --           .n_L
+        motor_motor_out => motor_out
     );
 
 END lights_rtl;
