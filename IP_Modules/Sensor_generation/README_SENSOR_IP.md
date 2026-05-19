@@ -2,15 +2,13 @@
 
 Ce dossier contient l'IP custom pour lire les capteurs de sol du CuteCar depuis le Nios II.
 
-L'organisation suit celle du PWM :
+Le wrapper Avalon-MM garde l'ancienne carte de registres du projet, mais la lecture ADC suit maintenant le timing du design de reference qui fonctionne : horloge systeme 50 MHz, SCK ADC lent autour de 100 kHz, deux trames LTC2308 par canal, puis balayage des canaux 0 a 6.
 
 | Fichier | Role |
 |---|---|
-| `Sensor_avalon_interface.vhd` | Wrapper Avalon-MM 32 bits |
-| `capteurs_sol.vhd` | Bloc original de lecture ADC/SPI |
-| `capteurs_sol_seuil.vhd` | Bloc original avec seuillage des valeurs |
-
-Le wrapper Avalon instancie `capteurs_sol_seuil`. Les fichiers originaux restent separes pour garder une structure claire dans `IP_Modules`.
+| `Sensor_avalon_interface.vhd` | Wrapper Avalon-MM 32 bits + machine SPI LTC2308 |
+| `capteurs_sol.vhd` | Bloc original conserve pour reference |
+| `capteurs_sol_seuil.vhd` | Bloc original conserve pour reference |
 
 ## Interfaces
 
@@ -28,27 +26,32 @@ Le composant expose un esclave Avalon-MM 32 bits :
 | `writedata` | entree | 32 bits |
 | `readdata` | sortie | 32 bits |
 
-Il y a un process d'ecriture pour les commandes et un process de lecture pour le polling.
+### Conduit ADC CuteCar
 
-### Conduit ADC
+Le conduit exporte les signaux de l'ADC CuteCar. Attention : ces signaux ne vont pas sur l'ADC interne DE0-Nano, mais sur GPIO0.
 
-Le conduit exporte les signaux de l'ADC :
-
-| Signal IP | Signal top-level DE0-Nano |
+| Signal IP | Signal top-level |
 |---|---|
-| `ADC_CONVST` | `ADC_CS_N` |
-| `ADC_SCK` | `ADC_SCLK` |
-| `ADC_SDI` | `ADC_SADDR` |
-| `ADC_SDO` | `ADC_SDAT` |
+| `ADC_CONVST` | `GPIO_0(8)` |
+| `ADC_SCK` | `GPIO_0(9)` |
+| `ADC_SDO` | `GPIO_0(10)` |
+| `ADC_SDI` | `GPIO_0(11)` |
+
+Dans `lights.vhd`, les signaux support de la carte capteurs sont aussi forces :
+
+| Signal | Valeur |
+|---|---|
+| `GPIO_0(32)` / `IR_LED_ON` | `1` |
+| `GPIO_0(33)` / `VCC3P3_PWRON_n` | `0` actif bas |
 
 ## Carte des registres
 
-L'adresse de base est choisie dans Platform Designer. Une adresse pratique apres le PWM est par exemple `0x04003040`.
+L'adresse de base actuelle dans Platform Designer est `0x04003040`.
 
 | Offset | Registre | Acces | Description |
 |---:|---|---|---|
-| `0x00` | `CONTROL_STATUS` | R/W | Ecriture bit 0 = lancer une acquisition. Ecriture bit 1 = effacer `ready`. Lecture bit 0 = `ready`, bits 14..8 = capteurs seuilles. |
-| `0x04` | `THRESHOLD` | R/W | Seuil sur 8 bits utilise par `capteurs_sol_seuil`. Valeur reset = `0x80`. |
+| `0x00` | `CONTROL_STATUS` | R/W | Ecriture bit 0 = lancer une acquisition. Ecriture bit 1 = effacer `ready`. Lecture bit 0 = `ready`, bit 1 = `busy`, bits 14..8 = capteurs seuilles, bit 16 = etat brut `ADC_SDO`. |
+| `0x04` | `THRESHOLD` | R/W | Seuil sur 8 bits compare aux bits 11..4 de chaque valeur ADC. Valeur reset = `0x80`. |
 | `0x08` | `RAW_0_3` | R | Valeurs brutes 8 bits des capteurs 0 a 3. |
 | `0x0C` | `RAW_4_6` | R | Valeurs brutes 8 bits des capteurs 4 a 6. |
 
@@ -57,10 +60,12 @@ L'adresse de base est choisie dans Platform Designer. Une adresse pratique apres
 `CONTROL_STATUS` :
 
 ```text
-bit 0      ready_latched
-bits 7..1  0
-bits 14..8 vect_capt(6 downto 0)
-bits 31..15 0
+bit 0       ready_latched
+bit 1       busy
+bits 7..2   0
+bits 14..8  vect_capt(6 downto 0)
+bit 16      ADC_SDO brut
+bits 31..17 0
 ```
 
 `RAW_0_3` :
@@ -116,45 +121,11 @@ read SENSOR_BASE + 0x0C
 write SENSOR_BASE + 0x00 = 0x00000002
 ```
 
-Ecrire `0x00000001` pour lancer une nouvelle acquisition efface aussi l'ancien `ready`.
-
-## HAL / BSP / system.h
-
-Quand le systeme Qsys est regenere, il faut aussi regenerer le BSP. Le fichier `system.h` contiendra alors une macro de base pour l'instance capteur, par exemple :
-
-```c
-#define SENSOR_AVALON_INTERFACE_0_BASE 0x04003040
-```
-
-Le nom exact depend du nom de l'instance choisi dans Platform Designer.
-
-Exemple HAL :
-
-```c
-#include "system.h"
-#include "io.h"
-
-#define SENSOR_BASE SENSOR_AVALON_INTERFACE_0_BASE
-
-IOWR(SENSOR_BASE, 1, 0x80);
-IOWR(SENSOR_BASE, 0, 0x01);
-
-while ((IORD(SENSOR_BASE, 0) & 0x1) == 0) {
-    /* polling */
-}
-
-unsigned status = IORD(SENSOR_BASE, 0);
-unsigned raw03 = IORD(SENSOR_BASE, 2);
-unsigned raw46 = IORD(SENSOR_BASE, 3);
-
-IOWR(SENSOR_BASE, 0, 0x02);
-```
-
-Dans Altera Monitor Program, c'est la meme logique mais avec les adresses absolues :
+Dans Altera Monitor Program avec la base actuelle :
 
 ```text
-base + 0x00 : control/status
-base + 0x04 : seuil
-base + 0x08 : raw capteurs 0..3
-base + 0x0C : raw capteurs 4..6
+0x04003040 : control/status
+0x04003044 : seuil
+0x04003048 : raw capteurs 0..3
+0x0400304C : raw capteurs 4..6
 ```

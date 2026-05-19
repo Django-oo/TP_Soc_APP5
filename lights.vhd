@@ -51,7 +51,7 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_dqm   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
         sdram_wire_ras_n : OUT   STD_LOGIC;
         sdram_wire_we_n  : OUT   STD_LOGIC;
-		  
+
         motor_export  : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
         sensor_CONVST : OUT STD_LOGIC;
         sensor_SCK    : OUT STD_LOGIC;
@@ -70,6 +70,15 @@ BEGIN
     GPIO_0(4) <= motor_out(1); -- MTRL_P
     GPIO_0(5) <= motor_out(0); -- MTRL_N
     GPIO_0(6) <= '1';          -- MTR_Sleep_n
+
+    -- CuteCar sensor board support signals.
+    GPIO_0(32) <= '1';         -- IR_LED_ON
+    GPIO_0(33) <= '0';         -- VCC3P3_PWRON_n, active low
+
+    -- The CuteCar sensors use the ADC on GPIO0, not the DE0-Nano onboard ADC.
+    ADC_CS_N  <= '1';
+    ADC_SADDR <= '0';
+    ADC_SCLK  <= '0';
 
     NiosII : system
     PORT MAP(
@@ -90,12 +99,12 @@ BEGIN
         sdram_wire_dqm   => DRAM_DQM,
         sdram_wire_ras_n => DRAM_RAS_N,
         sdram_wire_we_n  => DRAM_WE_N,
-		  
+
         motor_export  => motor_out,
-        sensor_CONVST => ADC_CS_N,
-        sensor_SCK    => ADC_SCLK,
-        sensor_SDI    => ADC_SADDR,
-        sensor_SDO    => ADC_SDAT
+        sensor_CONVST => GPIO_0(8),
+        sensor_SCK    => GPIO_0(9),
+        sensor_SDI    => GPIO_0(11),
+        sensor_SDO    => GPIO_0(10)
     );
 
 END lights_rtl;

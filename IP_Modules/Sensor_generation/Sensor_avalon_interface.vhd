@@ -23,75 +23,129 @@ entity Sensor_avalon_interface is
 end entity Sensor_avalon_interface;
 
 architecture rtl of Sensor_avalon_interface is
-    signal sensor_clock  : std_logic := '0';
-    signal capture_pulse : std_logic := '0';
-    signal threshold     : std_logic_vector(7 downto 0) := x"80";
+    constant SCK_DIV_CYCLES       : integer := 250; -- 50 MHz / (2 * 250) = 100 kHz
+    constant CONV_WAIT_CYCLES     : integer := 100;
+    constant CONV_LOW_WAIT_CYCLES : integer := 20;
 
-    signal core_ready : std_logic;
-    signal data0      : std_logic_vector(7 downto 0);
-    signal data1      : std_logic_vector(7 downto 0);
-    signal data2      : std_logic_vector(7 downto 0);
-    signal data3      : std_logic_vector(7 downto 0);
-    signal data4      : std_logic_vector(7 downto 0);
-    signal data5      : std_logic_vector(7 downto 0);
-    signal data6      : std_logic_vector(7 downto 0);
-    signal sensors    : std_logic_vector(6 downto 0);
+    type state_t is (
+        ST_IDLE,
+        ST_CONV_HIGH,
+        ST_CONV_LOW,
+        ST_SCK_LOW,
+        ST_SCK_HIGH,
+        ST_FRAME_DONE
+    );
 
+    type channel_array_t is array (0 to 6) of std_logic_vector(11 downto 0);
+
+    signal state : state_t := ST_IDLE;
+
+    signal threshold       : std_logic_vector(7 downto 0) := x"80";
     signal ready_latched   : std_logic := '0';
-    signal data0_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal data1_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal data2_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal data3_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal data4_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal data5_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal data6_latched   : std_logic_vector(7 downto 0) := (others => '0');
-    signal sensors_latched : std_logic_vector(6 downto 0) := (others => '0');
+    signal busy_reg        : std_logic := '0';
+    signal capture_request : std_logic := '0';
+
+    signal data_latched : channel_array_t := (others => (others => '0'));
+    signal data_work    : channel_array_t := (others => (others => '0'));
+    signal sensors      : std_logic_vector(6 downto 0);
+
+    signal active_channel : unsigned(2 downto 0) := (others => '0');
+    signal command_word   : std_logic_vector(5 downto 0) := (others => '0');
+    signal pass_index     : std_logic := '0';
+
+    signal conv_counter : integer range 0 to CONV_WAIT_CYCLES := 0;
+    signal low_counter  : integer range 0 to CONV_LOW_WAIT_CYCLES := 0;
+    signal sck_counter  : integer range 0 to SCK_DIV_CYCLES := 0;
+    signal bit_index    : integer range 0 to 11 := 0;
+    signal rx_shift     : std_logic_vector(11 downto 0) := (others => '0');
+
+    signal adc_convst_i : std_logic := '0';
+    signal adc_sck_i    : std_logic := '0';
+    signal adc_sdi_i    : std_logic := '0';
+
+    function make_command(ch : unsigned(2 downto 0)) return std_logic_vector is
+        variable cmd : std_logic_vector(5 downto 0);
+    begin
+        cmd(5) := '1';              -- single-ended
+        cmd(4) := std_logic(ch(0));
+        cmd(3) := std_logic(ch(2));
+        cmd(2) := std_logic(ch(1));
+        cmd(1) := '1';              -- unipolar
+        cmd(0) := '0';              -- no sleep
+        return cmd;
+    end function;
 begin
-    sensor_clock_process : process(clock, reset_n)
+    ADC_CONVST <= adc_convst_i;
+    ADC_SCK    <= adc_sck_i;
+    ADC_SDI    <= adc_sdi_i;
+
+    threshold_bits : for i in 0 to 6 generate
     begin
-        if reset_n = '0' then
-            sensor_clock <= '0';
-        elsif rising_edge(clock) then
-            sensor_clock <= not sensor_clock;
+        sensors(i) <= '1' when unsigned(data_latched(i)(11 downto 4)) > unsigned(threshold) else '0';
+    end generate threshold_bits;
+
+    read_process : process(address, chipselect, read, ready_latched, busy_reg, threshold, data_latched, sensors, ADC_SDO)
+    begin
+        readdata <= (others => '0');
+
+        if chipselect = '1' and read = '1' then
+            case address is
+                when "00" =>
+                    readdata(0)           <= ready_latched;
+                    readdata(1)           <= busy_reg;
+                    readdata(14 downto 8) <= sensors;
+                    readdata(16)          <= ADC_SDO;
+
+                when "01" =>
+                    readdata(7 downto 0) <= threshold;
+
+                when "10" =>
+                    readdata(7 downto 0)   <= data_latched(0)(11 downto 4);
+                    readdata(15 downto 8)  <= data_latched(1)(11 downto 4);
+                    readdata(23 downto 16) <= data_latched(2)(11 downto 4);
+                    readdata(31 downto 24) <= data_latched(3)(11 downto 4);
+
+                when "11" =>
+                    readdata(7 downto 0)   <= data_latched(4)(11 downto 4);
+                    readdata(15 downto 8)  <= data_latched(5)(11 downto 4);
+                    readdata(23 downto 16) <= data_latched(6)(11 downto 4);
+
+                when others =>
+                    readdata <= (others => '0');
+            end case;
         end if;
-    end process sensor_clock_process;
+    end process read_process;
 
-    write_process : process(clock, reset_n)
+    process(clock, reset_n)
+        variable next_channel : unsigned(2 downto 0);
     begin
         if reset_n = '0' then
-            capture_pulse  <= '0';
-            threshold      <= x"80";
-            ready_latched  <= '0';
-            data0_latched  <= (others => '0');
-            data1_latched  <= (others => '0');
-            data2_latched  <= (others => '0');
-            data3_latched  <= (others => '0');
-            data4_latched  <= (others => '0');
-            data5_latched  <= (others => '0');
-            data6_latched  <= (others => '0');
-            sensors_latched <= (others => '0');
+            state           <= ST_IDLE;
+            threshold       <= x"80";
+            ready_latched   <= '0';
+            busy_reg        <= '0';
+            capture_request <= '0';
+            data_latched    <= (others => (others => '0'));
+            data_work       <= (others => (others => '0'));
+            active_channel  <= (others => '0');
+            command_word    <= (others => '0');
+            pass_index      <= '0';
+            conv_counter    <= 0;
+            low_counter     <= 0;
+            sck_counter     <= 0;
+            bit_index       <= 0;
+            rx_shift        <= (others => '0');
+            adc_convst_i    <= '0';
+            adc_sck_i       <= '0';
+            adc_sdi_i       <= '0';
         elsif rising_edge(clock) then
-            capture_pulse <= '0';
-
-            if core_ready = '1' then
-                ready_latched   <= '1';
-                data0_latched   <= data0;
-                data1_latched   <= data1;
-                data2_latched   <= data2;
-                data3_latched   <= data3;
-                data4_latched   <= data4;
-                data5_latched   <= data5;
-                data6_latched   <= data6;
-                sensors_latched <= sensors;
-            end if;
-
             if chipselect = '1' and write = '1' then
                 case address is
                     when "00" =>
                         if byteenable(0) = '1' then
-                            if writedata(0) = '1' then
-                                capture_pulse <= '1';
-                                ready_latched <= '0';
+                            if writedata(0) = '1' and busy_reg = '0' then
+                                capture_request <= '1';
+                                ready_latched   <= '0';
                             end if;
 
                             if writedata(1) = '1' then
@@ -108,60 +162,132 @@ begin
                         null;
                 end case;
             end if;
-        end if;
-    end process write_process;
 
-    read_process : process(address, read, chipselect, ready_latched, threshold,
-                           data0_latched, data1_latched, data2_latched,
-                           data3_latched, data4_latched, data5_latched,
-                           data6_latched, sensors_latched)
-    begin
-        readdata <= (others => '0');
+            case state is
+                when ST_IDLE =>
+                    adc_convst_i <= '0';
+                    adc_sck_i    <= '0';
+                    adc_sdi_i    <= '0';
+                    conv_counter <= 0;
+                    low_counter  <= 0;
+                    sck_counter  <= 0;
+                    bit_index    <= 0;
 
-        if chipselect = '1' and read = '1' then
-            case address is
-                when "00" =>
-                    readdata(0)           <= ready_latched;
-                    readdata(14 downto 8) <= sensors_latched;
+                    if capture_request = '1' then
+                        capture_request <= '0';
+                        busy_reg        <= '1';
+                        ready_latched   <= '0';
+                        data_work       <= (others => (others => '0'));
+                        active_channel  <= (others => '0');
+                        command_word    <= make_command(to_unsigned(0, 3));
+                        pass_index      <= '0';
+                        rx_shift        <= (others => '0');
+                        adc_convst_i    <= '1';
+                        state           <= ST_CONV_HIGH;
+                    end if;
 
-                when "01" =>
-                    readdata(7 downto 0) <= threshold;
+                when ST_CONV_HIGH =>
+                    adc_convst_i <= '1';
+                    adc_sck_i    <= '0';
 
-                when "10" =>
-                    readdata(7 downto 0)   <= data0_latched;
-                    readdata(15 downto 8)  <= data1_latched;
-                    readdata(23 downto 16) <= data2_latched;
-                    readdata(31 downto 24) <= data3_latched;
+                    if conv_counter >= CONV_WAIT_CYCLES - 1 then
+                        conv_counter <= 0;
+                        adc_convst_i <= '0';
+                        state        <= ST_CONV_LOW;
+                    else
+                        conv_counter <= conv_counter + 1;
+                    end if;
 
-                when "11" =>
-                    readdata(7 downto 0)   <= data4_latched;
-                    readdata(15 downto 8)  <= data5_latched;
-                    readdata(23 downto 16) <= data6_latched;
+                when ST_CONV_LOW =>
+                    adc_convst_i <= '0';
+                    adc_sck_i    <= '0';
 
-                when others =>
-                    readdata <= (others => '0');
+                    if low_counter >= CONV_LOW_WAIT_CYCLES - 1 then
+                        low_counter <= 0;
+                        sck_counter <= 0;
+                        bit_index   <= 0;
+                        rx_shift    <= (others => '0');
+                        adc_sdi_i   <= command_word(5);
+                        state       <= ST_SCK_LOW;
+                    else
+                        low_counter <= low_counter + 1;
+                    end if;
+
+                when ST_SCK_LOW =>
+                    adc_sck_i <= '0';
+
+                    if sck_counter >= SCK_DIV_CYCLES - 1 then
+                        sck_counter <= 0;
+                        adc_sck_i   <= '1';
+                        state       <= ST_SCK_HIGH;
+                    else
+                        sck_counter <= sck_counter + 1;
+                    end if;
+
+                when ST_SCK_HIGH =>
+                    adc_sck_i <= '1';
+
+                    if sck_counter >= SCK_DIV_CYCLES - 1 then
+                        sck_counter <= 0;
+                        rx_shift(11 - bit_index) <= ADC_SDO;
+                        adc_sck_i <= '0';
+
+                        if bit_index >= 11 then
+                            state <= ST_FRAME_DONE;
+                        else
+                            bit_index <= bit_index + 1;
+
+                            if bit_index + 1 < 6 then
+                                adc_sdi_i <= command_word(5 - (bit_index + 1));
+                            else
+                                adc_sdi_i <= '0';
+                            end if;
+
+                            state <= ST_SCK_LOW;
+                        end if;
+                    else
+                        sck_counter <= sck_counter + 1;
+                    end if;
+
+                when ST_FRAME_DONE =>
+                    adc_convst_i <= '0';
+                    adc_sck_i    <= '0';
+                    adc_sdi_i    <= '0';
+
+                    if pass_index = '0' then
+                        pass_index   <= '1';
+                        conv_counter <= 0;
+                        low_counter  <= 0;
+                        rx_shift     <= (others => '0');
+                        adc_convst_i <= '1';
+                        state        <= ST_CONV_HIGH;
+                    else
+                        data_work(to_integer(active_channel)) <= rx_shift;
+
+                        if active_channel = to_unsigned(6, 3) then
+                            data_latched(0) <= data_work(0);
+                            data_latched(1) <= data_work(1);
+                            data_latched(2) <= data_work(2);
+                            data_latched(3) <= data_work(3);
+                            data_latched(4) <= data_work(4);
+                            data_latched(5) <= data_work(5);
+                            data_latched(6) <= rx_shift;
+                            busy_reg        <= '0';
+                            ready_latched   <= '1';
+                            state           <= ST_IDLE;
+                        else
+                            next_channel  := active_channel + 1;
+                            active_channel <= next_channel;
+                            command_word   <= make_command(next_channel);
+                            pass_index     <= '0';
+                            conv_counter   <= 0;
+                            low_counter    <= 0;
+                            rx_shift       <= (others => '0');
+                            adc_convst_i   <= '1';
+                            state          <= ST_CONV_HIGH;
+                        end if;
+                    end if;
             end case;
         end if;
-    end process read_process;
-
-    sensor_core : entity work.capteurs_sol_seuil
-        port map (
-            clk          => sensor_clock,
-            reset_n      => reset_n,
-            data_capture => capture_pulse,
-            data_readyr  => core_ready,
-            data0r       => data0,
-            data1r       => data1,
-            data2r       => data2,
-            data3r       => data3,
-            data4r       => data4,
-            data5r       => data5,
-            data6r       => data6,
-            NIVEAU       => threshold,
-            vect_capt    => sensors,
-            ADC_CONVSTr  => ADC_CONVST,
-            ADC_SCK      => ADC_SCK,
-            ADC_SDIr     => ADC_SDI,
-            ADC_SDO      => ADC_SDO
-        );
+    end process;
 end architecture rtl;
