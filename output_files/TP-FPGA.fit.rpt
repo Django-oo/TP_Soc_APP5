@@ -1,5 +1,5 @@
 Fitter report for TP-FPGA
-Tue May 19 09:40:23 2026
+Tue May 19 10:33:07 2026
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -76,7 +76,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                        ;
 +------------------------------------+--------------------------------------------------+
-; Fitter Status                      ; Successful - Tue May 19 09:40:23 2026            ;
+; Fitter Status                      ; Successful - Tue May 19 10:33:07 2026            ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name                      ; TP-FPGA                                          ;
 ; Top-level Entity Name              ; lights                                           ;
@@ -162,12 +162,12 @@ applicable agreement for further details.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
-; Average used               ; 1.38        ;
+; Average used               ; 2.54        ;
 ; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-6         ;   7.7%      ;
+;     Processors 2-6         ;  30.8%      ;
 ;     Processors 7-12        ;   0.0%      ;
 +----------------------------+-------------+
 
@@ -3458,7 +3458,7 @@ Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 0.53 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.63 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -3502,9 +3502,9 @@ Warning (169064): Following 34 pins have no output enable or a GND or VCC output
     Info (169065): Pin GPIO_0[33] has a permanently disabled output enable
 Info (144001): Generated suppressed messages file C:/Users/secours/Documents/TP_Soc/output_files/TP-FPGA.fit.smsg
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 83 warnings
-    Info: Peak virtual memory: 5595 megabytes
-    Info: Processing ended: Tue May 19 09:40:25 2026
-    Info: Elapsed time: 00:00:26
+    Info: Peak virtual memory: 5591 megabytes
+    Info: Processing ended: Tue May 19 10:33:08 2026
+    Info: Elapsed time: 00:00:25
     Info: Total CPU time (on all processors): 00:00:16
 
 

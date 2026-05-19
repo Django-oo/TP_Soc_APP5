@@ -1,5 +1,5 @@
 Analysis & Synthesis report for TP-FPGA
-Tue May 19 09:39:57 2026
+Tue May 19 10:32:41 2026
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -263,7 +263,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                          ;
 +------------------------------------+--------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue May 19 09:39:57 2026            ;
+; Analysis & Synthesis Status        ; Successful - Tue May 19 10:32:41 2026            ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name                      ; TP-FPGA                                          ;
 ; Top-level Entity Name              ; lights                                           ;
@@ -1986,16 +1986,6 @@ Encoding Type:  One-Hot
 ; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; No         ; |lights|system:NiosII|system_addr_router_001:addr_router_001|src_channel[1]                                                                                                                                                                                                                                                                   ;
 ; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; No         ; |lights|system:NiosII|system_sdram:sdram|Selector34                                                                                                                                                                                                                                                                                           ;
 ; 16:1               ; 2 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; No         ; |lights|system:NiosII|system_sdram:sdram|Selector28                                                                                                                                                                                                                                                                                           ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[1]                                                                                                                                                                                                                                                    ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]                                                                                                                                                                                                                                                       ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[2][0]                                                                                                                                                                                                                                                           ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]                                                                                                                                                                                                                                                           ;
-; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[4]                                                                                                                                                                                                                                 ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|shadow_irf_reg[2][1]                                                                                                                                                                                                                                                    ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|shadow_irf_reg[1][3]                                                                                                                                                                                                                                                    ;
-; 8:1                ; 5 bits    ; 25 LEs        ; 10 LEs               ; 15 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[3]                                                                                                                                                                                                                                                             ;
-; 34:1               ; 4 bits    ; 88 LEs        ; 56 LEs               ; 32 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[1]                                                                                                                                                                                                                                                      ;
-; 28:1               ; 4 bits    ; 72 LEs        ; 48 LEs               ; 24 LEs                 ; Yes        ; |lights|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[0]                                                                                                                                                                                                                                      ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -7247,14 +7237,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+---------------------------------+
-; Elapsed Time Per Partition      ;
-+------------------+--------------+
-; Partition Name   ; Elapsed Time ;
-+------------------+--------------+
-; Top              ; 00:00:06     ;
-; sld_hub:auto_hub ; 00:00:00     ;
-+------------------+--------------+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:06     ;
++----------------+--------------+
 
 
 +-------------------------------+
@@ -7263,7 +7252,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
-    Info: Processing started: Tue May 19 09:39:29 2026
+    Info: Processing started: Tue May 19 10:32:12 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off TP-FPGA -c TP-FPGA
 Info (11104): Parallel Compilation has detected 12 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 6 of the 6 physical processors detected instead.
 Info (12021): Found 2 design units, including 1 entities, in source file nios_system/synthesis/system.vhd
@@ -7449,6 +7438,15 @@ Info (12021): Found 2 design units, including 1 entities, in source file ip_modu
 Info (12021): Found 2 design units, including 1 entities, in source file ip_modules/pwm_generation/pwm_avalon_interface.vhd
     Info (12022): Found design unit 1: PWM_avalon_interface-rtl
     Info (12023): Found entity 1: PWM_avalon_interface
+Info (12021): Found 2 design units, including 1 entities, in source file ip_modules/sensor_generation/capteurs_sol.vhd
+    Info (12022): Found design unit 1: capteurs_sol-RTL
+    Info (12023): Found entity 1: capteurs_sol
+Info (12021): Found 2 design units, including 1 entities, in source file ip_modules/sensor_generation/capteurs_sol_seuil.vhd
+    Info (12022): Found design unit 1: capteurs_sol_seuil-RTL
+    Info (12023): Found entity 1: capteurs_sol_seuil
+Info (12021): Found 2 design units, including 1 entities, in source file ip_modules/sensor_generation/sensor_avalon_interface.vhd
+    Info (12022): Found design unit 1: Sensor_avalon_interface-rtl
+    Info (12023): Found entity 1: Sensor_avalon_interface
 Warning (10037): Verilog HDL or VHDL warning at system_sdram.v(316): conditional expression evaluates to a constant
 Warning (10037): Verilog HDL or VHDL warning at system_sdram.v(326): conditional expression evaluates to a constant
 Warning (10037): Verilog HDL or VHDL warning at system_sdram.v(336): conditional expression evaluates to a constant
@@ -8019,11 +8017,6 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "DRAM_CKE" is stuck at VCC
 Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (17049): 301 registers lost all their fanouts during netlist optimizations.
-Info (13000): Registers with preset signals will power-up high
-Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "sld_hub:auto_hub|receive[0][0]" is stuck at GND
-Info (286031): Timing-Driven Synthesis is running on partition "sld_hub:auto_hub"
 Warning (20013): Ignored assignments for entity "DE0_NANO" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE0_NANO -section_id Top was ignored
     Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE0_NANO -section_id Top was ignored
@@ -8059,11 +8052,11 @@ Info (21057): Implemented 3130 device resources after synthesis - the final reso
     Info (21061): Implemented 2889 logic cells
     Info (21064): Implemented 144 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 216 warnings
-    Info: Peak virtual memory: 4811 megabytes
-    Info: Processing ended: Tue May 19 09:39:57 2026
-    Info: Elapsed time: 00:00:28
-    Info: Total CPU time (on all processors): 00:00:16
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 214 warnings
+    Info: Peak virtual memory: 4815 megabytes
+    Info: Processing ended: Tue May 19 10:32:42 2026
+    Info: Elapsed time: 00:00:30
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +------------------------------------------+
