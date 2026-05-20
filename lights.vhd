@@ -50,26 +50,18 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_dq    : INOUT STD_LOGIC_VECTOR(15 DOWNTO 0);
         sdram_wire_dqm   : OUT   STD_LOGIC_VECTOR(1 DOWNTO 0);
         sdram_wire_ras_n : OUT   STD_LOGIC;
-        sdram_wire_we_n  : OUT   STD_LOGIC;
-
-        motor_export  : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-        sensor_1_CONVST : OUT STD_LOGIC;
-        sensor_1_SCK    : OUT STD_LOGIC;
-        sensor_1_SDI    : OUT STD_LOGIC;
-        sensor_1_SDO    : IN  STD_LOGIC
+        sdram_wire_we_n  : OUT   STD_LOGIC
     );
     END COMPONENT;
-
-    SIGNAL motor_out : STD_LOGIC_VECTOR(3 DOWNTO 0);
 
 BEGIN
 
     GPIO_0 <= (others => 'Z');
-    GPIO_0(2) <= motor_out(2); -- MTRR_N
-    GPIO_0(3) <= motor_out(3); -- MTRR_P
-    GPIO_0(4) <= motor_out(1); -- MTRL_P
-    GPIO_0(5) <= motor_out(0); -- MTRL_N
-    GPIO_0(6) <= '1';          -- MTR_Sleep_n
+    GPIO_0(2) <= '0';          -- MTRR_N inactive while PWM IP is disabled
+    GPIO_0(3) <= '0';          -- MTRR_P inactive while PWM IP is disabled
+    GPIO_0(4) <= '0';          -- MTRL_P inactive while PWM IP is disabled
+    GPIO_0(5) <= '0';          -- MTRL_N inactive while PWM IP is disabled
+    GPIO_0(6) <= '0';          -- MTR_Sleep_n inactive while PWM IP is disabled
 
     -- CuteCar sensor board support signals.
     GPIO_0(32) <= '1';         -- IR_LED_ON
@@ -98,13 +90,7 @@ BEGIN
         sdram_wire_dq    => DRAM_DQ,
         sdram_wire_dqm   => DRAM_DQM,
         sdram_wire_ras_n => DRAM_RAS_N,
-        sdram_wire_we_n  => DRAM_WE_N,
-
-        motor_export  => motor_out,
-        sensor_1_CONVST => GPIO_0(8),
-        sensor_1_SCK    => GPIO_0(9),
-        sensor_1_SDI    => GPIO_0(11),
-        sensor_1_SDO    => GPIO_0(10)
+        sdram_wire_we_n  => DRAM_WE_N
     );
 
 END lights_rtl;
