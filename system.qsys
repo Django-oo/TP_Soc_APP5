@@ -12,6 +12,14 @@
    element $${FILENAME}
    {
    }
+   element ByteSwap_avalon_interface_0
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
    element LEDS
    {
       datum _sortIndex
@@ -27,6 +35,11 @@
          value = "8";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
    }
    element Sensor_avalon_interface_0
    {
@@ -37,7 +50,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -47,6 +60,11 @@
       {
          value = "10";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element jtag_uart.avalon_jtag_slave
@@ -59,19 +77,6 @@
       datum baseAddress
       {
          value = "67121184";
-         type = "String";
-      }
-   }
-   element Sensor_avalon_interface_0.avalon_slave_0
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "67121216";
          type = "String";
       }
    }
@@ -93,6 +98,19 @@
       datum baseAddress
       {
          value = "0";
+         type = "String";
+      }
+   }
+   element Sensor_avalon_interface_0.avalon_slave_0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "67121216";
          type = "String";
       }
    }
@@ -154,7 +172,7 @@
          type = "int";
       }
    }
-   element switches.s1
+   element onchip_memory.s1
    {
       datum _lockedAddress
       {
@@ -163,7 +181,7 @@
       }
       datum baseAddress
       {
-         value = "67121152";
+         value = "67112960";
          type = "String";
       }
    }
@@ -193,7 +211,7 @@
          type = "String";
       }
    }
-   element onchip_memory.s1
+   element switches.s1
    {
       datum _lockedAddress
       {
@@ -202,7 +220,7 @@
       }
       datum baseAddress
       {
-         value = "67112960";
+         value = "67121152";
          type = "String";
       }
    }
@@ -237,7 +255,7 @@
  <parameter name="projectName" value="TP-FPGA.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1779277670913" />
+ <parameter name="timeStamp" value="1779288145240" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
@@ -254,17 +272,9 @@
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface name="sdram_wire" internal="sdram.wire" type="conduit" dir="end" />
  <interface name="sdram_clk" internal="clocks.sdram_clk" type="clock" dir="start" />
- <interface
-   name="motor"
-   internal="PWM_avalon_interface_0.conduit_end"
-   type="conduit"
-   dir="end" />
+ <interface name="motor" internal="PWM_avalon_interface_0.conduit_end" />
  <interface name="sensor" internal="Sensor_avalon_interface_0.conduit_end" />
- <interface
-   name="sensor_1"
-   internal="Sensor_generation1_0.conduit_end"
-   type="conduit"
-   dir="end" />
+ <interface name="sensor_1" internal="Sensor_generation1_0.conduit_end" />
  <module kind="clock_source" version="13.0" enabled="1" name="clk_0">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -377,7 +387,7 @@
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='sdram.s1' start='0x2000000' end='0x4000000' /><slave name='onchip_memory.s1' start='0x4001000' end='0x4002000' /><slave name='nios2_processor.jtag_debug_module' start='0x4002800' end='0x4003000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='Sensor_generation1_0.avalon_slave_0' start='0x0' end='0x10' /><slave name='sdram.s1' start='0x2000000' end='0x4000000' /><slave name='onchip_memory.s1' start='0x4001000' end='0x4002000' /><slave name='nios2_processor.jtag_debug_module' start='0x4002800' end='0x4003000' /><slave name='switches.s1' start='0x4003000' end='0x4003010' /><slave name='LEDS.s1' start='0x4003010' end='0x4003020' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4003020' end='0x4003028' /><slave name='PWM_avalon_interface_0.avalon_slave_0' start='0x4003030' end='0x4003038' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ByteSwap_avalon_interface_0.avalon_slave_0' start='0x0' end='0x8' /><slave name='sdram.s1' start='0x2000000' end='0x4000000' /><slave name='onchip_memory.s1' start='0x4001000' end='0x4002000' /><slave name='nios2_processor.jtag_debug_module' start='0x4002800' end='0x4003000' /><slave name='switches.s1' start='0x4003000' end='0x4003010' /><slave name='LEDS.s1' start='0x4003010' end='0x4003020' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4003020' end='0x4003028' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone IV E" />
   <parameter name="internalIrqMaskSystemInfo" value="0" />
@@ -514,7 +524,7 @@
  <module
    kind="PWM_avalon_interface"
    version="1.0"
-   enabled="1"
+   enabled="0"
    name="PWM_avalon_interface_0">
   <parameter name="AUTO_CLOCK_SINK_CLOCK_RATE" value="50000000" />
  </module>
@@ -528,8 +538,17 @@
  <module
    kind="Sensor_generation1"
    version="1.0"
+   enabled="0"
+   name="Sensor_generation1_0">
+  <parameter name="AUTO_CLOCK_SINK_CLOCK_RATE" value="50000000" />
+ </module>
+ <module
+   kind="ByteSwap_avalon_interface"
+   version="1.0"
    enabled="1"
-   name="Sensor_generation1_0" />
+   name="ByteSwap_avalon_interface_0">
+  <parameter name="AUTO_CLOCK_SINK_CLOCK_RATE" value="50000000" />
+ </module>
  <connection
    kind="avalon"
    version="13.0"
@@ -749,6 +768,25 @@
    version="13.0"
    start="nios2_processor.data_master"
    end="Sensor_generation1_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="reset"
+   version="13.0"
+   start="nios2_processor.jtag_debug_module_reset"
+   end="ByteSwap_avalon_interface_0.reset_sink" />
+ <connection
+   kind="clock"
+   version="13.0"
+   start="clocks.sys_clk"
+   end="ByteSwap_avalon_interface_0.clock_sink" />
+ <connection
+   kind="avalon"
+   version="13.0"
+   start="nios2_processor.data_master"
+   end="ByteSwap_avalon_interface_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />

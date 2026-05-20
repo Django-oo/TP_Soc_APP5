@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2026.05.20.14:52:12</td>
+    <td class="l">2026.05.20.16:44:52</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -109,11 +109,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_sdram"><b>sdram</b>
      </a> altera_avalon_new_sdram_controller 13.0.1.99.2
      <br/>&#160;&#160;
-     <a href="#module_PWM_avalon_interface_0"><b>PWM_avalon_interface_0</b>
-     </a> PWM_avalon_interface 1.0
-     <br/>&#160;&#160;
-     <a href="#module_Sensor_generation1_0"><b>Sensor_generation1_0</b>
-     </a> Sensor_generation1 1.0</span>
+     <a href="#module_ByteSwap_avalon_interface_0"><b>ByteSwap_avalon_interface_0</b>
+     </a> ByteSwap_avalon_interface 1.0</span>
    </div>
   </div>
   <div style="width:100% ;  height:10px"> </div>
@@ -210,20 +207,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slavemodule">&#160;
-     <a href="#module_PWM_avalon_interface_0"><b>PWM_avalon_interface_0</b>
-     </a>
-    </td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-   </tr>
-   <tr>
-    <td class="slaveb">avalon_slave_0&#160;</td>
-    <td class="addr"><span style="color:#989898">0x</span>04003030</td>
-    <td class="empty"></td>
-   </tr>
-   <tr>
-    <td class="slavemodule">&#160;
-     <a href="#module_Sensor_generation1_0"><b>Sensor_generation1_0</b>
+     <a href="#module_ByteSwap_avalon_interface_0"><b>ByteSwap_avalon_interface_0</b>
      </a>
     </td>
     <td class="empty"></td>
@@ -294,7 +278,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-      <td class="main" rowspan="46">nios2_processor</td>
+      <td class="main" rowspan="41">nios2_processor</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_n</td>
@@ -480,35 +464,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
-       <a href="#module_PWM_avalon_interface_0">PWM_avalon_interface_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_slave_0</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">jtag_debug_module_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
       <td class="from">jtag_debug_module_reset&#160;&#160;</td>
       <td class="neighbor" rowspan="4">
-       <a href="#module_Sensor_generation1_0">Sensor_generation1_0</a>
+       <a href="#module_ByteSwap_avalon_interface_0">ByteSwap_avalon_interface_0</a>
       </td>
      </tr>
      <tr>
@@ -977,7 +935,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='Sensor_generation1_0.avalon_slave_0' start='0x0' end='0x10' /&gt;&lt;slave name='sdram.s1' start='0x2000000' end='0x4000000' /&gt;&lt;slave name='onchip_memory.s1' start='0x4001000' end='0x4002000' /&gt;&lt;slave name='nios2_processor.jtag_debug_module' start='0x4002800' end='0x4003000' /&gt;&lt;slave name='switches.s1' start='0x4003000' end='0x4003010' /&gt;&lt;slave name='LEDS.s1' start='0x4003010' end='0x4003020' /&gt;&lt;slave name='jtag_uart.avalon_jtag_slave' start='0x4003020' end='0x4003028' /&gt;&lt;slave name='PWM_avalon_interface_0.avalon_slave_0' start='0x4003030' end='0x4003038' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ByteSwap_avalon_interface_0.avalon_slave_0' start='0x0' end='0x8' /&gt;&lt;slave name='sdram.s1' start='0x2000000' end='0x4000000' /&gt;&lt;slave name='onchip_memory.s1' start='0x4001000' end='0x4002000' /&gt;&lt;slave name='nios2_processor.jtag_debug_module' start='0x4002800' end='0x4003000' /&gt;&lt;slave name='switches.s1' start='0x4003000' end='0x4003010' /&gt;&lt;slave name='LEDS.s1' start='0x4003010' end='0x4003020' /&gt;&lt;slave name='jtag_uart.avalon_jtag_slave' start='0x4003020' end='0x4003028' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">clockFrequency</td>
@@ -2255,7 +2213,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-      <td class="main" rowspan="30">clocks</td>
+      <td class="main" rowspan="27">clocks</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk_in_primary_reset</td>
@@ -2379,23 +2337,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">sys_clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_PWM_avalon_interface_0">PWM_avalon_interface_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;clock_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">sys_clk&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Sensor_generation1_0">Sensor_generation1_0</a>
+       <a href="#module_ByteSwap_avalon_interface_0">ByteSwap_avalon_interface_0</a>
       </td>
      </tr>
      <tr>
@@ -2463,10 +2405,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_PWM_avalon_interface_0"> </a>
+  <a name="module_ByteSwap_avalon_interface_0"> </a>
   <div>
    <hr/>
-   <h2>PWM_avalon_interface_0</h2>PWM_avalon_interface v1.0
+   <h2>ByteSwap_avalon_interface_0</h2>ByteSwap_avalon_interface v1.0
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -2474,17 +2416,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="neighbor" rowspan="4">
        <a href="#module_nios2_processor">nios2_processor</a>
       </td>
-      <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="7">PWM_avalon_interface_0</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;avalon_slave_0</td>
-     </tr>
-     <tr>
       <td class="from">jtag_debug_module_reset&#160;&#160;</td>
+      <td class="main" rowspan="7">ByteSwap_avalon_interface_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr>
+      <td class="from">data_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2530,72 +2472,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_Sensor_generation1_0"> </a>
-  <div>
-   <hr/>
-   <h2>Sensor_generation1_0</h2>Sensor_generation1 v1.0
-   <br/>
-   <div class="greydiv">
-    <table class="connectionboxes">
-     <tr>
-      <td class="neighbor" rowspan="4">
-       <a href="#module_nios2_processor">nios2_processor</a>
-      </td>
-      <td class="from">jtag_debug_module_reset&#160;&#160;</td>
-      <td class="main" rowspan="7">Sensor_generation1_0</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">data_master&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;avalon_slave_0</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_clocks">clocks</a>
-      </td>
-      <td class="from">sys_clk&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;clock_sink</td>
-     </tr>
-    </table>
-   </div>
-   <br/>
-   <br/>
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Parameters</h2>
-      <table>
-       <tr>
-        <td class="parametername">deviceFamily</td>
-        <td class="parametervalue">UNKNOWN</td>
-       </tr>
-       <tr>
-        <td class="parametername">generateLegacySim</td>
-        <td class="parametervalue">false</td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-   </table>&#160;&#160;
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Software Assignments</h2>(none)</td>
-    </tr>
-   </table>
-  </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0,00 seconds</td>
+    <td class="l">generation took 0,02 seconds</td>
     <td class="r">rendering took 0,06 seconds</td>
    </tr>
   </table>
