@@ -53,10 +53,10 @@ ARCHITECTURE lights_rtl OF lights IS
         sdram_wire_we_n  : OUT   STD_LOGIC;
 
         motor_export  : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-        sensor_CONVST : OUT STD_LOGIC;
-        sensor_SCK    : OUT STD_LOGIC;
-        sensor_SDI    : OUT STD_LOGIC;
-        sensor_SDO    : IN  STD_LOGIC
+        sensor_1_CONVST : OUT STD_LOGIC;
+        sensor_1_SCK    : OUT STD_LOGIC;
+        sensor_1_SDI    : OUT STD_LOGIC;
+        sensor_1_SDO    : IN  STD_LOGIC
     );
     END COMPONENT;
 
@@ -101,10 +101,10 @@ BEGIN
         sdram_wire_we_n  => DRAM_WE_N,
 
         motor_export  => motor_out,
-        sensor_CONVST => GPIO_0(8),
-        sensor_SCK    => GPIO_0(9),
-        sensor_SDI    => GPIO_0(11),
-        sensor_SDO    => GPIO_0(10)
+        sensor_1_CONVST => GPIO_0(8),
+        sensor_1_SCK    => GPIO_0(9),
+        sensor_1_SDI    => GPIO_0(11),
+        sensor_1_SDO    => GPIO_0(10)
     );
 
 END lights_rtl;

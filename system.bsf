@@ -47,8 +47,8 @@ applicable agreement for further details.
 	(port
 		(pt 0 488)
 		(input)
-		(text "sensor_SDO" (rect 0 0 53 12)(font "Arial" (font_size 8)))
-		(text "sensor_SDO" (rect 4 477 64 488)(font "Arial" (font_size 8)))
+		(text "sensor_1_SDO" (rect 0 0 62 12)(font "Arial" (font_size 8)))
+		(text "sensor_1_SDO" (rect 4 477 76 488)(font "Arial" (font_size 8)))
 		(line (pt 0 488)(pt 128 488)(line_width 1))
 	)
 	(port
@@ -131,22 +131,22 @@ applicable agreement for further details.
 	(port
 		(pt 0 440)
 		(output)
-		(text "sensor_CONVST" (rect 0 0 74 12)(font "Arial" (font_size 8)))
-		(text "sensor_CONVST" (rect 4 429 82 440)(font "Arial" (font_size 8)))
+		(text "sensor_1_CONVST" (rect 0 0 83 12)(font "Arial" (font_size 8)))
+		(text "sensor_1_CONVST" (rect 4 429 94 440)(font "Arial" (font_size 8)))
 		(line (pt 0 440)(pt 128 440)(line_width 1))
 	)
 	(port
 		(pt 0 456)
 		(output)
-		(text "sensor_SCK" (rect 0 0 53 12)(font "Arial" (font_size 8)))
-		(text "sensor_SCK" (rect 4 445 64 456)(font "Arial" (font_size 8)))
+		(text "sensor_1_SCK" (rect 0 0 62 12)(font "Arial" (font_size 8)))
+		(text "sensor_1_SCK" (rect 4 445 76 456)(font "Arial" (font_size 8)))
 		(line (pt 0 456)(pt 128 456)(line_width 1))
 	)
 	(port
 		(pt 0 472)
 		(output)
-		(text "sensor_SDI" (rect 0 0 48 12)(font "Arial" (font_size 8)))
-		(text "sensor_SDI" (rect 4 461 64 472)(font "Arial" (font_size 8)))
+		(text "sensor_1_SDI" (rect 0 0 57 12)(font "Arial" (font_size 8)))
+		(text "sensor_1_SDI" (rect 4 461 76 472)(font "Arial" (font_size 8)))
 		(line (pt 0 472)(pt 128 472)(line_width 1))
 	)
 	(port
@@ -179,7 +179,7 @@ applicable agreement for further details.
 		(text "clk" (rect 193 67 404 144)(font "Arial" (color 0 0 0)))
 		(text "motor" (rect 95 371 220 755)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 133 395 302 800)(font "Arial" (color 0 0 0)))
-		(text "sensor" (rect 89 411 214 835)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "sensor_1" (rect 76 411 200 835)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "CONVST" (rect 133 435 302 880)(font "Arial" (color 0 0 0)))
 		(text "SCK" (rect 133 451 284 912)(font "Arial" (color 0 0 0)))
 		(text "SDI" (rect 133 467 284 944)(font "Arial" (color 0 0 0)))

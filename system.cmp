@@ -15,10 +15,10 @@
 			sdram_wire_we_n  : out   std_logic;                                        -- we_n
 			sdram_clk_clk    : out   std_logic;                                        -- clk
 			motor_export     : out   std_logic_vector(3 downto 0);                     -- export
-			sensor_CONVST    : out   std_logic;                                        -- CONVST
-			sensor_SCK       : out   std_logic;                                        -- SCK
-			sensor_SDI       : out   std_logic;                                        -- SDI
-			sensor_SDO       : in    std_logic                     := 'X'              -- SDO
+			sensor_1_CONVST  : out   std_logic;                                        -- CONVST
+			sensor_1_SCK     : out   std_logic;                                        -- SCK
+			sensor_1_SDI     : out   std_logic;                                        -- SDI
+			sensor_1_SDO     : in    std_logic                     := 'X'              -- SDO
 		);
 	end component system;
 

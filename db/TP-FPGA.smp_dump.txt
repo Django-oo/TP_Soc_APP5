@@ -1,4 +1,13 @@
 
+State Machine - |lights|system:NiosII|Sensor_avalon_interface:sensor_generation1_0|state
+Name state.ST_FRAME_DONE state.ST_SCK_HIGH state.ST_SCK_LOW state.ST_CONV_LOW state.ST_CONV_HIGH state.ST_IDLE 
+state.ST_IDLE 0 0 0 0 0 0 
+state.ST_CONV_HIGH 0 0 0 0 1 1 
+state.ST_CONV_LOW 0 0 0 1 0 1 
+state.ST_SCK_LOW 0 0 1 0 0 1 
+state.ST_SCK_HIGH 0 1 0 0 0 1 
+state.ST_FRAME_DONE 1 0 0 0 0 1 
+
 State Machine - |lights|system:NiosII|system_sdram:sdram|m_next
 Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 
 m_next.000000001 0 0 0 0 
