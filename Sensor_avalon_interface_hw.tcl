@@ -75,7 +75,7 @@ add_interface_port reset_sink reset_n reset_n Input 1
 
 add_interface conduit_end conduit end
 set_interface_property conduit_end associatedClock clock_sink
-set_interface_property conduit_end associatedReset ""
+set_interface_property conduit_end associatedReset reset_sink
 set_interface_property conduit_end ENABLED true
 set_interface_property conduit_end EXPORT_OF ""
 set_interface_property conduit_end PORT_NAME_MAP ""

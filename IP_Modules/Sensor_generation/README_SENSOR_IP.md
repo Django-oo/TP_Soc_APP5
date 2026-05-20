@@ -1,34 +1,10 @@
 # IP capteurs sol Avalon-MM
 
-Ce dossier contient l'IP custom pour lire les capteurs de sol du CuteCar depuis le Nios II.
+Ce dossier contient l'IP custom pour lire l'ADC LTC2308 du CuteCar depuis le Nios II.
 
-Le wrapper Avalon-MM garde l'ancienne carte de registres du projet, mais la lecture ADC suit maintenant le timing du design de reference qui fonctionne : horloge systeme 50 MHz, SCK ADC lent autour de 100 kHz, deux trames LTC2308 par canal, puis balayage des canaux 0 a 6.
+Le registre Avalon suit maintenant une carte proche de l'exemple fonctionnel de Maxime : un registre de controle, un registre de selection de canal, un registre de donnee et un registre de statut. Le but est d'eviter l'ancien registre unique qui servait a la fois de commande et de statut.
 
-| Fichier | Role |
-|---|---|
-| `Sensor_avalon_interface.vhd` | Wrapper Avalon-MM 32 bits + machine SPI LTC2308 |
-| `capteurs_sol.vhd` | Bloc original conserve pour reference |
-| `capteurs_sol_seuil.vhd` | Bloc original conserve pour reference |
-
-## Interfaces
-
-### Avalon-MM slave
-
-Le composant expose un esclave Avalon-MM 32 bits :
-
-| Signal | Direction | Taille |
-|---|---:|---:|
-| `address` | entree | 2 bits |
-| `chipselect` | entree | 1 bit |
-| `write` | entree | 1 bit |
-| `read` | entree | 1 bit |
-| `byteenable` | entree | 4 bits |
-| `writedata` | entree | 32 bits |
-| `readdata` | sortie | 32 bits |
-
-### Conduit ADC CuteCar
-
-Le conduit exporte les signaux de l'ADC CuteCar. Attention : ces signaux ne vont pas sur l'ADC interne DE0-Nano, mais sur GPIO0.
+## Conduit ADC CuteCar
 
 | Signal IP | Signal top-level |
 |---|---|
@@ -37,7 +13,7 @@ Le conduit exporte les signaux de l'ADC CuteCar. Attention : ces signaux ne vont
 | `ADC_SDO` | `GPIO_0(10)` |
 | `ADC_SDI` | `GPIO_0(11)` |
 
-Dans `lights.vhd`, les signaux support de la carte capteurs sont aussi forces :
+Dans `lights.vhd`, les signaux de support de la carte capteurs restent forces :
 
 | Signal | Valeur |
 |---|---|
@@ -46,86 +22,33 @@ Dans `lights.vhd`, les signaux support de la carte capteurs sont aussi forces :
 
 ## Carte des registres
 
-L'adresse de base actuelle dans Platform Designer est `0x04003040`.
+L'instance recreree `Sensor_generation1_0` est actuellement mappee a la base `0x00000000` dans Platform Designer.
 
 | Offset | Registre | Acces | Description |
 |---:|---|---|---|
-| `0x00` | `CONTROL_STATUS` | R/W | Ecriture bit 0 = lancer une acquisition. Ecriture bit 1 = effacer `ready`. Lecture bit 0 = `ready`, bit 1 = `busy`, bits 14..8 = capteurs seuilles, bit 16 = etat brut `ADC_SDO`. |
-| `0x04` | `THRESHOLD` | R/W | Seuil sur 8 bits compare aux bits 11..4 de chaque valeur ADC. Valeur reset = `0x80`. |
-| `0x08` | `RAW_0_3` | R | Valeurs brutes 8 bits des capteurs 0 a 3. |
-| `0x0C` | `RAW_4_6` | R | Valeurs brutes 8 bits des capteurs 4 a 6. |
+| `0x00` | `CONTROL` | R/W | Ecriture bit 0 = lancer une conversion. Bit 1 conserve une valeur compatible `IR_LED_ON`, meme si l'IR est force dans `lights.vhd`. Lecture bit 0 = 0 pour eviter la confusion avec un statut. |
+| `0x04` | `CHANNEL` | R/W | Bits 2..0 = canal ADC a lire, de 0 a 7. |
+| `0x08` | `DATA` | R | Bits 11..0 = derniere valeur ADC 12 bits lue. |
+| `0x0C` | `STATUS` | R/W | Lecture bit 0 = `busy`, bit 1 = `done`, bit 2 = etat brut `ADC_SDO`. Ecriture bit 1 = effacer `done`. |
 
-### Format de lecture
+## Test Altera Monitor Program
 
-`CONTROL_STATUS` :
-
-```text
-bit 0       ready_latched
-bit 1       busy
-bits 7..2   0
-bits 14..8  vect_capt(6 downto 0)
-bit 16      ADC_SDO brut
-bits 31..17 0
-```
-
-`RAW_0_3` :
+Exemple pour lire le canal 0 avec la base actuelle `0x00000000` :
 
 ```text
-bits 7..0    data0
-bits 15..8   data1
-bits 23..16  data2
-bits 31..24  data3
+write 0x00000004 = 0x00000000   # channel 0
+write 0x00000000 = 0x00000003   # START + IR bit compatible
+read  0x0000000C                # attendre bit 1 = 1, done
+read  0x00000008                # valeur ADC 12 bits
 ```
 
-`RAW_4_6` :
+Pour lire le canal 1 :
 
 ```text
-bits 7..0    data4
-bits 15..8   data5
-bits 23..16  data6
-bits 31..24  0
+write 0x00000004 = 0x00000001
+write 0x00000000 = 0x00000003
+read  0x0000000C
+read  0x00000008
 ```
 
-## Test par polling
-
-Avec une base `SENSOR_BASE`, la sequence est :
-
-1. Regler le seuil si necessaire :
-
-```text
-write SENSOR_BASE + 0x04 = 0x00000080
-```
-
-2. Lancer une acquisition :
-
-```text
-write SENSOR_BASE + 0x00 = 0x00000001
-```
-
-3. Polling sur `ready` :
-
-```text
-read SENSOR_BASE + 0x00 jusqu'a ce que bit 0 = 1
-```
-
-4. Lire les valeurs :
-
-```text
-read SENSOR_BASE + 0x08
-read SENSOR_BASE + 0x0C
-```
-
-5. Effacer `ready` avant une nouvelle acquisition :
-
-```text
-write SENSOR_BASE + 0x00 = 0x00000002
-```
-
-Dans Altera Monitor Program avec la base actuelle :
-
-```text
-0x04003040 : control/status
-0x04003044 : seuil
-0x04003048 : raw capteurs 0..3
-0x0400304C : raw capteurs 4..6
-```
+Repeter avec `CHANNEL = 0..6` pour les sept capteurs de ligne. Les valeurs utiles sont les 12 bits bas de `DATA`.

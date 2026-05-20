@@ -122,8 +122,8 @@ add_interface_port reset_sink reset_n reset_n Input 1
 # connection point conduit_end
 # 
 add_interface conduit_end conduit end
-set_interface_property conduit_end associatedClock ""
-set_interface_property conduit_end associatedReset ""
+set_interface_property conduit_end associatedClock clock_sink
+set_interface_property conduit_end associatedReset reset_sink
 set_interface_property conduit_end ENABLED true
 set_interface_property conduit_end EXPORT_OF ""
 set_interface_property conduit_end PORT_NAME_MAP ""
@@ -133,4 +133,3 @@ add_interface_port conduit_end ADC_CONVST export Output 1
 add_interface_port conduit_end ADC_SCK export Output 1
 add_interface_port conduit_end ADC_SDI export Output 1
 add_interface_port conduit_end ADC_SDO export Input 1
-
