@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="381b5afcd8b7a39c90fe"/>
+    <hash md5_digest_80b="ec4ece51ad110e040daa"/>
   </project>
   <file_info>
     <file device="EP4CE22F17C6" path="TP-FPGA.sof" usercode="0xFFFFFFFF"/>
@@ -144,7 +144,7 @@
   <sld_infos>
     <sld_info hpath="system:NiosII" name="NiosII">
       <assignment_values>
-        <assignment_value text="QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1779278294"/>
+        <assignment_value text="QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1779281532"/>
       </assignment_values>
       <parameters/>
     </sld_info>

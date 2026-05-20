@@ -99,7 +99,7 @@ GPIO_0[33]                   : B12       : bidir  : 2.5 V             :         
 LED[2]                       : B13       : output : 2.5 V             :         : 7         : Y              
 ADC_SCLK                     : B14       : output : 2.5 V             :         : 7         : Y              
 GND                          : B15       : gnd    :                   :         :           :                
-SW[5]                        : B16       : input  : 2.5 V             :         : 6         : N              
+SW[4]                        : B16       : input  : 2.5 V             :         : 6         : N              
 ~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP : C1        : input  : 2.5 V             :         : 1         : N              
 DRAM_WE_N                    : C2        : output : 2.5 V             :         : 1         : Y              
 GPIO_0[1]                    : C3        : bidir  : 2.5 V             :         : 8         : Y              
@@ -161,7 +161,7 @@ GND                          : F10       : gnd    :                   :         
 VCCINT                       : F11       : power  :                   : 1.2V    :           :                
 VCCA2                        : F12       : power  :                   : 2.5V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : F13       :        :                   :         : 6         :                
-SW[4]                        : F14       : input  : 2.5 V             :         : 6         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : F14       :        :                   :         : 6         :                
 SW[6]                        : F15       : input  : 2.5 V             :         : 6         : N              
 ~ALTERA_nCEO~ / RESERVED_OUTPUT_OPEN_DRAIN : F16       : output : 2.5 V             :         : 6         : N              
 DRAM_DQ[1]                   : G1        : bidir  : 2.5 V             :         : 1         : Y              
@@ -179,7 +179,7 @@ MSEL2                        : G12       :        :                   :         
 GND                          : G13       : gnd    :                   :         :           :                
 VCCIO6                       : G14       : power  :                   : 2.5V    : 6         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : G15       :        :                   :         : 6         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G16       :        :                   :         : 6         :                
+SW[5]                        : G16       : input  : 2.5 V             :         : 6         : N              
 ~ALTERA_DCLK~                : H1        : output : 2.5 V             :         : 1         : N              
 ~ALTERA_DATA0~ / RESERVED_INPUT_WITH_WEAK_PULLUP : H2        : input  : 2.5 V             :         : 1         : N              
 altera_reserved_tck          : H3        : input  : 2.5 V             :         : 1         : N              
