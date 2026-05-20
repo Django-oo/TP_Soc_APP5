@@ -1,5 +1,5 @@
 Fitter report for TP-FPGA
-Wed May 20 14:54:19 2026
+Wed May 20 16:34:28 2026
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -76,7 +76,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                        ;
 +------------------------------------+--------------------------------------------------+
-; Fitter Status                      ; Successful - Wed May 20 14:54:19 2026            ;
+; Fitter Status                      ; Successful - Wed May 20 16:34:27 2026            ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name                      ; TP-FPGA                                          ;
 ; Top-level Entity Name              ; lights                                           ;
@@ -162,12 +162,12 @@ applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.60        ;
+; Average used               ; 1.38        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;  20.0%      ;
+;     Processors 2-4         ;  12.5%      ;
 ;     Processors 5-8         ;   0.0%      ;
 +----------------------------+-------------+
 
@@ -3483,7 +3483,7 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "I2C_SCLK" is assigned to location or region, but does not exist in design
     Warning (15706): Node "I2C_SDAT" is assigned to location or region, but does not exist in design
     Warning (15706): Node "KEY[1]" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:04
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:05
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:01
 Info (170191): Fitter placement operations beginning
@@ -3496,7 +3496,7 @@ Info (170194): Fitter routing operations ending: elapsed time is 00:00:02
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 0.83 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 1.03 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -3540,10 +3540,10 @@ Warning (169064): Following 34 pins have no output enable or a GND or VCC output
     Info (169065): Pin GPIO_0[33] has a permanently enabled output enable
 Info (144001): Generated suppressed messages file C:/Users/secours/Documents/TP_Soc/output_files/TP-FPGA.fit.smsg
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 79 warnings
-    Info: Peak virtual memory: 5470 megabytes
-    Info: Processing ended: Wed May 20 14:54:21 2026
-    Info: Elapsed time: 00:00:27
-    Info: Total CPU time (on all processors): 00:00:20
+    Info: Peak virtual memory: 5496 megabytes
+    Info: Processing ended: Wed May 20 16:34:29 2026
+    Info: Elapsed time: 00:00:29
+    Info: Total CPU time (on all processors): 00:00:21
 
 
 +----------------------------+
